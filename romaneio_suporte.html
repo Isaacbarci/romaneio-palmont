@@ -674,32 +674,30 @@ function configurarEventosQuantidade() {
             renderTable();
         }
 
-        function loadSavedEdits() {
-            const stored = JSON.parse(localStorage.getItem("suporte_edicoes") || "{}");
-            const currentServico = document.getElementById("servicoSelect").value;
+        
+function loadSavedEdits() {
+    const stored = JSON.parse(localStorage.getItem("suporte_edicoes") || "{}");
+    const currentServico = document.getElementById("servicoSelect").value;
 
-            if (!stored[currentFileName] || !stored[currentFileName][currentServico]) {
-                return;
-            }
+    if (!stored[currentFileName] || !stored[currentFileName][currentServico]) {
+        return;
+    }
 
-            const servicoEdits = stored[currentFileName][currentServico];
+    const servicoEdits = stored[currentFileName][currentServico];
 
-            Object.keys(servicoEdits).forEach(index => {
-                const rowIndex = parseInt(index);
-                if (rowIndex >= 0 && rowIndex < data.length &&
-                    data[rowIndex][servicoIndex] === currentServico) {
-
-                    const edit = servicoEdits[rowIndex];
-                    data[rowIndex][columnIndexes["data do romaneio"]] = edit.dataRomaneio || "";
-                    data[rowIndex][columnIndexes["qtd enviada"]] = edit.qtdEnviada || "";
-                    data[rowIndex][columnIndexes["obs romaneio"]] = edit.obsRomaneio || "";
-
-                    editedRows.add(rowIndex);
-                }
-            });
+    Object.entries(servicoEdits).forEach(([id, edit]) => {
+        const rowIndex = data.findIndex(row => row[columnIndexes["id"]] == id);
+        if (rowIndex !== -1 && data[rowIndex][servicoIndex] === currentServico) {
+            data[rowIndex][columnIndexes["data do romaneio"]] = edit.dataRomaneio || "";
+            data[rowIndex][columnIndexes["qtd enviada"]] = edit.qtdEnviada || "";
+            data[rowIndex][columnIndexes["obs romaneio"]] = edit.obsRomaneio || "";
+            editedRows.add(rowIndex);
         }
+    });
+}
 
-        function clearPreviousFileData() {
+
+function clearPreviousFileData() {
             editedRows.clear();
         }
 
@@ -916,66 +914,64 @@ function configurarEventosQuantidade() {
             document.body.style.overflow = "hidden";
         }
 
-        function saveEdit() {
-            const originalIndex = parseInt(document.getElementById("editIndex").value);
-            const selectedServico = document.getElementById("servicoSelect").value;
+        
+function saveEdit() {
+    const originalIndex = parseInt(document.getElementById("editIndex").value);
+    const selectedServico = document.getElementById("servicoSelect").value;
 
-            const dataRomaneio = document.getElementById("DATADOROMANEIO").value.trim();
-            const qtdEnviada = document.getElementById("QTDENVIADA").value.trim();
-            const obsRomaneio = document.getElementById("OBSROMANEIO").value.trim();
+    const dataRomaneio = document.getElementById("DATADOROMANEIO").value.trim();
+    const qtdEnviada = document.getElementById("QTDENVIADA").value.trim();
+    const obsRomaneio = document.getElementById("OBSROMANEIO").value.trim();
 
-            // Validações
-            if (dataRomaneio && !qtdEnviada) {
-                alert("Informe a Quantidade Enviada antes de salvar.");
-                document.getElementById("QTDENVIADA").focus();
-                return;
-            }
+    if (dataRomaneio && !qtdEnviada) {
+        alert("Informe a Quantidade Enviada antes de salvar.");
+        document.getElementById("QTDENVIADA").focus();
+        return;
+    }
 
-            if (qtdEnviada && !dataRomaneio) {
-                alert("Informe a Data do Romaneio antes de salvar.");
-                document.getElementById("DATADOROMANEIO").focus();
-                return;
-            }
+    if (qtdEnviada && !dataRomaneio) {
+        alert("Informe a Data do Romaneio antes de salvar.");
+        document.getElementById("DATADOROMANEIO").focus();
+        return;
+    }
 
-            if (data[originalIndex][servicoIndex] !== selectedServico) {
-                alert("ERRO: O item não pertence ao serviço selecionado!");
-                closeModal();
-                return;
-            }
+    if (data[originalIndex][servicoIndex] !== selectedServico) {
+        alert("ERRO: O item não pertence ao serviço selecionado!");
+        closeModal();
+        return;
+    }
 
-            data[originalIndex][columnIndexes["data do romaneio"]] = dataRomaneio;
-            data[originalIndex][columnIndexes["qtd enviada"]] = qtdEnviada;
-            data[originalIndex][columnIndexes["obs romaneio"]] = obsRomaneio;
+    data[originalIndex][columnIndexes["data do romaneio"]] = dataRomaneio;
+    data[originalIndex][columnIndexes["qtd enviada"]] = qtdEnviada;
+    data[originalIndex][columnIndexes["obs romaneio"]] = obsRomaneio;
 
-            if (!dataRomaneio && !qtdEnviada && !obsRomaneio) {
-                editedRows.delete(originalIndex);
-            } else {
-                editedRows.add(originalIndex);
-            }
+    const id = data[originalIndex][columnIndexes["id"]];
+    const stored = JSON.parse(localStorage.getItem("suporte_edicoes") || "{}");
 
-            const stored = JSON.parse(localStorage.getItem("suporte_edicoes") || "{}");
+    if (!stored[currentFileName]) stored[currentFileName] = {};
+    if (!stored[currentFileName][selectedServico]) stored[currentFileName][selectedServico] = {};
 
-            if (!stored[currentFileName]) stored[currentFileName] = {};
-            if (!stored[currentFileName][selectedServico]) stored[currentFileName][selectedServico] = {};
+    if (dataRomaneio || qtdEnviada || obsRomaneio) {
+        stored[currentFileName][selectedServico][id] = {
+            dataRomaneio,
+            qtdEnviada,
+            obsRomaneio
+        };
+        editedRows.add(originalIndex);
+    } else {
+        delete stored[currentFileName][selectedServico][id];
+        editedRows.delete(originalIndex);
+    }
 
-            if (editedRows.has(originalIndex)) {
-                stored[currentFileName][selectedServico][originalIndex] = {
-                    dataRomaneio,
-                    qtdEnviada,
-                    obsRomaneio
-                };
-            } else {
-                delete stored[currentFileName][selectedServico][originalIndex];
-            }
+    localStorage.setItem("suporte_edicoes", JSON.stringify(stored));
+    localStorage.setItem("suporte_ultimoServico", selectedServico);
 
-            localStorage.setItem("suporte_edicoes", JSON.stringify(stored));
-            localStorage.setItem("suporte_ultimoServico", selectedServico);
+    closeModal();
+    renderTable();
+}
 
-            closeModal();
-            renderTable();
-        }
 
-        function closeModal() {
+function closeModal() {
             const qtdInput = document.getElementById("QTDENVIADA");
             const okBtn = document.getElementById("okBtnKeyboard");
             
