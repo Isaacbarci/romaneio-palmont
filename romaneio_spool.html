@@ -313,6 +313,45 @@
     }
 }
 </style>
+<style>
+    .loading-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+    }
+
+    .progress-container {
+        width: 80%;
+        max-width: 400px;
+        background-color: #333;
+        border-radius: 5px;
+        padding: 3px;
+        margin-top: 20px;
+    }
+
+    .progress-bar {
+        height: 20px;
+        background-color: #007BFF;
+        border-radius: 3px;
+        width: 0%;
+        transition: width 0.3s ease;
+    }
+
+    .loading-text {
+        color: white;
+        margin-bottom: 10px;
+        font-size: 18px;
+    }
+</style>
+
 </head>
 <body>
 <h2><img alt="Logo" src="image.png" style="height: 40px; width: 95px; margin-right: 5px; margin-left: -15px;"/>
@@ -497,12 +536,20 @@ function debounce(func, wait) {
     };
 }
 
+
+
+
 async function loadServices() {
+    document.getElementById("loadingOverlay").style.display = "flex";
+    const progressBar = document.getElementById("progressBar");
+    progressBar.style.width = "0%";
+    progressBar.textContent = "0%";
+
     try {
         const response = await fetch(currentFileName);
         if (!response.ok) throw new Error("Erro ao carregar o arquivo local.");
         const arrayBuffer = await response.arrayBuffer();
-        
+
         clearPreviousFileData();
 
         const workbook = XLSX.read(arrayBuffer, {
@@ -519,11 +566,32 @@ async function loadServices() {
 
         window.originalData = JSON.parse(JSON.stringify(jsonData));
         data = JSON.parse(JSON.stringify(jsonData));
-        filteredData = data.slice(1);
+        filteredData = [];
+
+        const totalRows = data.length - 1;
+        const batchSize = Math.ceil(totalRows / 100);
+        for (let i = 1; i < data.length; i++) {
+            filteredData.push(data[i]);
+
+            if (i % batchSize === 0 || i === data.length - 1) {
+                const percent = Math.min(100, Math.round((i / totalRows) * 80));
+                progressBar.style.width = percent + "%";
+                progressBar.textContent = percent + "%";
+                await new Promise(resolve => setTimeout(resolve, 10));
+            }
+        }
 
         findColumnIndexes();
         mapColumnIndexes();
+
         await populateServicoOptions();
+
+        progressBar.style.width = "100%";
+        progressBar.textContent = "100%";
+
+        setTimeout(() => {
+            document.getElementById("loadingOverlay").style.display = "none";
+        }, 500);
 
         const spool_ultimoServico = await carregarEdicaoIndexedDB("spool_ultimoServico");
         const servicoSelect = document.getElementById("serviceList");
@@ -538,8 +606,12 @@ async function loadServices() {
     } catch (error) {
         console.error("Erro ao carregar Excel:", error);
         alert("Não foi possível carregar o arquivo do diretório.");
+        document.getElementById("loadingOverlay").style.display = "none";
     }
 }
+
+
+
 
 async function confirmLoadService() {
     const senhaCorreta = "1234";
@@ -666,6 +738,7 @@ function mapColumnIndexes() {
     });
 }
 
+
 async function populateServicoOptions() {
     const servicoSet = new Set();
 
@@ -692,11 +765,20 @@ async function populateServicoOptions() {
         servicoSelect.appendChild(option);
     });
 
+    const progressBar = document.getElementById("progressBar");
+    progressBar.style.width = "100%";
+    progressBar.textContent = "100%";
+
+    setTimeout(() => {
+        document.getElementById("loadingOverlay").style.display = "none";
+    }, 500);
+
     const spool_ultimoServico = await carregarEdicaoIndexedDB("spool_ultimoServico");
     if (spool_ultimoServico?.valor && servicosOrdenados.includes(spool_ultimoServico.valor)) {
         servicoSelect.value = spool_ultimoServico.valor;
     }
 }
+
 
 function renderTable() {
     const table = document.getElementById("dataTable");
@@ -870,12 +952,17 @@ function startQrScanner() {
 }
 
 function stopQrScanner() {
+    // Esconde imediatamente para evitar atraso visual
+    document.getElementById("qr-container").style.display = "none";
+    document.getElementById("closeScannerBtn").style.display = "none";
+
+    // Para o scanner depois
     if (qrScanner) {
         qrScanner.stop().then(() => {
-            document.getElementById("qr-container").style.display = "none";
-            document.getElementById("closeScannerBtn").style.display = "none";
+            qrScanner.clear();
+            qrScanner = null; // limpa a referência
         }).catch((err) => {
-            console.error(err);
+            console.error("Erro ao parar o scanner:", err);
         });
     }
 }
@@ -1088,5 +1175,13 @@ if ('serviceWorker' in navigator) {
 
 localStorage.setItem("spool_sistemaAberto", "spool");
 </script>
+
+<div class="loading-overlay" id="loadingOverlay">
+    <div class="loading-text">Carregando sistema...</div>
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+</div>
+
 </body>
 </html>
