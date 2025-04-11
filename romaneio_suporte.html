@@ -1505,6 +1505,16 @@ function stopQrScanner() {
 }
 
 function downloadExcel() {
+    
+    if (!filteredData || filteredData.length === 0) {
+        alert("Nenhum dado disponível para exportar.");
+        return;
+    }
+if (!filteredData || filteredData.length === 0) {
+        alert("Nenhum dado disponível para exportar.");
+        return;
+    }
+
     const servicoSelecionado = document.getElementById("servicoSelect")?.value;
     if (!servicoSelecionado) {
         alert("Selecione um serviço antes de exportar.");
