@@ -1505,6 +1505,32 @@ function stopQrScanner() {
 }
 
 function downloadExcel() {
+    if (!document.getElementById("servicoSelect")?.value) {
+        alert("Selecione um serviço antes de exportar.");
+        return;
+    }
+
+    if (!filteredData || filteredData.length === 0) {
+        alert("Nenhum dado disponível para exportar.");
+        return;
+    }
+
+    if (!selectedServico) {
+        alert("Selecione um serviço antes de exportar.");
+        return;
+    }
+
+    if (!filteredData || filteredData.length === 0) {
+        alert("Nenhum dado disponível para exportar.");
+        return;
+    }
+
+    const selectedServico = document.getElementById("servicoSelect")?.value;
+    if (!selectedServico) {
+        alert("Selecione um serviço antes de exportar.");
+        return;
+    }
+
     if (!data.length) {
         alert("Nenhum dado carregado para exportar.");
         return;
