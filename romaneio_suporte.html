@@ -1506,6 +1506,11 @@ function stopQrScanner() {
 
 function downloadExcel() {
     
+    if (!filteredData || filteredData.length === 0) {
+        alert("Nenhum dado disponível para exportar.");
+        return;
+    }
+
     const linhasValidas = filteredData.filter(row => row.some(cell => cell !== ""));
     if (linhasValidas.length === 0) {
         alert("Nenhum item editado para exportar.");
