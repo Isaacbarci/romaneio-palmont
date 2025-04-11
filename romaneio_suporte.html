@@ -5,8 +5,10 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
 <title>Romaneio de Suporte</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.full.min.js">async 
+</script>
 <script src="https://unpkg.com/html5-qrcode">
+async 
 </script>
 <style>
     body {
@@ -1529,6 +1531,12 @@ function downloadExcel() {
         .map(index => data[index])
         .filter(row => row[servicoIndex] === currentServico);
     let dataToExport = [data[0], ...editedOnlyRows.map(row => [...row])];
+
+if (editedOnlyRows.length === 0) {
+    alert("Nenhuma edição foi realizada. O download está desativado.");
+    return;
+}
+
     // ===== Adiciona coluna RESPONSÁVEL =====
     if (nomeResponsavelSelecionado && Array.isArray(dataToExport) && dataToExport.length > 1) {
         const headers = dataToExport[0];
@@ -1790,6 +1798,7 @@ if ('serviceWorker' in navigator) {
 
 localStorage.setItem("suporte_sistemaAberto", "suporte");
     
+async 
 </script>
 <div class="loading-overlay" id="loadingOverlay" style="display: none;">
 <div class="loading-text">Carregando sistema...</div>
@@ -1804,6 +1813,7 @@ function confirmarVoltar() {
     }
 }
 
+async 
 </script>
 <!-- Modal de Seleção de Responsável -->
 <div class="modal-overlay" id="responsavelModal" style="z-index: 3000; display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.9); justify-content: center; align-items: center;">
@@ -1835,13 +1845,6 @@ function atualizarResponsavelNaTela() {
 }
 
 
-function abrirResponsavelModal(callback) {
-  const modal = document.getElementById("responsavelModal");
-  modal.style.display = "flex";
-  
-  window._responsavelCallback = callback;
-}
-
 function confirmarResponsavel() {
   const select = document.getElementById("responsavelSelect");
   const nome = select.value;
@@ -1866,25 +1869,15 @@ function fecharResponsavelModal() {
   modal.style.display = "none";
 }
 
+async 
 </script>
 
 <script>
-async function abrirResponsavelModal(callback) {
-  const salvo = await carregarEdicaoIndexedDB("suporte_ultimoResponsavel");
-  const nomeSalvo = salvo?.valor;
-  const modal = document.getElementById("responsavelModal");
-  const select = document.getElementById("responsavelSelect");
-
-  if (nomeSalvo && select) {
-    const opcoes = Array.from(select.options);
-    const existe = opcoes.find(opt => opt.value === nomeSalvo);
-    if (existe) {
-      select.value = nomeSalvo;
-    }
-  }
+}
 
   modal.style.display = "flex";
   window._callbackResponsavel = callback;
 }
+async 
 </script></body>
 </html>
