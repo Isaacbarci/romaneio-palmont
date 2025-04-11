@@ -1,11 +1,13 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
 <title>Romaneio de Spool</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.full.min.js"></script>
-<script src="https://unpkg.com/html5-qrcode"></script>
+<script src="https://unpkg.com/html5-qrcode">
+</script>
 <style>
     body {
         font-family: Arial, sans-serif;
@@ -45,7 +47,7 @@
         border-radius: 5px;
         border: 1px solid #ccc;
         font-size: 12px;
-        width: 205px;
+        width: 206px;
         height: 25px;
     }
     
@@ -312,6 +314,197 @@
         width: calc(100% - 20px);
     }
 }
+
+@media (min-width: 568px) and (max-width: 768px) {
+  .linha-servico {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 10px;
+    margin: 10px 0;
+  }
+
+  #serviceList {
+    font-size: 15px;
+    height: 38px;
+    padding: 6px 10px;
+    line-height: 1;
+    min-width: 230px;
+    text-align-last: center;
+  }
+
+  .linha-servico button {
+    height: 38px;
+    padding: 6px 12px;
+    font-size: 15px;
+    line-height: 1;
+  }
+}
+
+@media (min-width: 568px) and (max-width: 768px) {
+  .linha-servico {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: nowrap;
+    margin: 10px 0;
+  }
+
+  #serviceList {
+    height: 28px !important;
+    font-size: 14px;
+    padding: 2px 10px !important;
+    margin: 0;
+    display: flex;
+    align-items: center;
+  }
+
+  .linha-servico button {
+    height: 38px;
+    font-size: 14px;
+    padding: 6px 16px;
+    display: flex;
+    align-items: center;
+  }
+}
+
+@media (min-width: 568px) and (max-width: 768px) {
+  .linha-servico {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 10px;
+    margin: 10px 0;
+  }
+
+  #serviceList {
+    height: 28px !important;
+    font-size: 14px;
+    padding: 2px 10px !important;
+    margin: 0;
+    display: flex;
+    align-items: center;
+  }
+
+  .linha-servico button {
+    height: 38px;
+    font-size: 14px;
+    padding: 6px 16px;
+    display: flex;
+    align-items: center;
+  }
+}
+
+@media (min-width: 769px) {
+  .linha-servico {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 10px;
+    margin: 10px 0;
+  }
+
+  #serviceList {
+    height: 28px;
+    font-size: 14px;
+    padding: 2px 10px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    min-width: 230px;
+  }
+
+  .linha-servico button {
+    height: 38px;
+    font-size: 14px;
+    padding: 6px 16px;
+    display: flex;
+    align-items: center;
+  }
+}
+
+@media (min-width: 769px) {
+  .linha-superior {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 10px;
+    flex-direction: row;
+    margin-bottom: 10px;
+  }
+
+  .linha-superior > * {
+    margin: 0 !important;
+  }
+
+  #serviceList {
+    height: 28px;
+    font-size: 14px;
+    padding: 2px 10px;
+    min-width: 230px;
+  }
+
+  .linha-superior button, .linha-superior input[type="text"] {
+    height: 38px;
+    font-size: 14px;
+    padding: 6px 12px;
+  }
+
+  #identificacaoFilter {
+    width: 250px !important;
+  }
+}
+
+@media (min-width: 769px) {
+  #identificacaoFilter {
+    height: 38px !important;
+    font-size: 14px;
+    padding: 6px 12px !important;
+    display: flex;
+    align-items: center;
+  }
+}
+
+@media (min-width: 769px) {
+  #identificacaoFilter {
+    height: 38px !important;
+    font-size: 14px !important;
+    padding: 6px 12px !important;
+    line-height: 1 !important;
+    border-radius: 6px;
+    box-sizing: border-box;
+  }
+
+  #btnClearFilter {
+    height: 38px !important;
+    padding: 6px 12px !important;
+    font-size: 14px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@media (min-width: 568px) and (max-width: 768px) {
+  #serviceList {
+    min-width: 270px !important;
+  }
+}
+
+@media (min-width: 769px) {
+  #serviceList {
+    min-width: 270px !important;
+  }
+
+  #identificacaoFilter {
+    width: 270px !important;
+  }
+}
 </style>
 <style>
     .loading-overlay {
@@ -350,91 +543,126 @@
         margin-bottom: 10px;
         font-size: 18px;
     }
-</style>
 
+@media (min-width: 568px) and (max-width: 768px) {
+    h2 {
+        font-size: 24px;
+    }
+
+    button {
+        font-size: 16.5px;
+        padding: 12px 24px;
+    }
+
+    select, input[type="text"], input[type="number"], input[type="date"] {
+        font-size: 16.5px;
+        padding: 11px 13px;
+    }
+
+    .modal label, .modal input {
+        font-size: 16.5px;
+    }
+
+    #identificacaoFilter {
+        width: 95% !important;
+    }
+
+    .modal {
+        padding: 24px;
+    }
+
+    .modal-footer {
+        gap: 14px;
+    }
+}
+
+
+@media (min-width: 568px) and (max-width: 768px) {
+    #servicoSelect {
+        display: block;
+        margin: 0 auto 8px auto;
+        text-align-last: center;
+    }
+}
+
+</style>
 </head>
 <body>
-<h2><img alt="Logo" src="image.png" style="height: 40px; width: 95px; margin-right: 5px; margin-left: -15px;"/>
-    ROMANEIO DE SPOOL
-</h2>
-<p style="font-size: 6px; color: white; margin-left: 17px; margin-top: -14px;">
-    Developed by Isaac Dutra
-</p>
-<div style="margin-left: 5px;">
-    <select id="serviceList">
-         <option value="" disabled selected hidden>Selecione um serviço</option>
-</select>
-    <button onclick="confirmLoadService()">Carregar Serviço</button>
-    <input id="identificacaoFilter" placeholder="Filtrar por ISOMÉTRICO ou QR Code" type="text"/>
-    <button onclick="downloadExcel()">Download Excel</button>
-    <button onclick="startQrScanner()">Escanear QR Code</button>
-    <button onclick="voltarParaIndex()" title="Voltar para o Início">
-        <svg fill="white" height="16" style="vertical-align: middle; margin-right: 5px;" viewbox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg">
-            <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"></path>
-        </svg>
+<div style="display: flex; align-items: center; justify-content: center; gap: 4px; margin-top: 10px;">
+<div style="display: flex; flex-direction: column; align-items: center;">
+<img alt="Logo" src="logo_palmont.png" style="height: 32px; width: auto;"/>
+<div style="font-size: 7px; color: white; margin-top: 2px;">Developed by Isaac Dutra</div>
+</div>
+<h2 style="margin: 0; font-size: 20px;">ROMANEIO DE SPOOL</h2>
+</div>
+<div style="margin: auto; width: fit-content; text-align: center;"><div class="linha-superior"><div class="linha-servico"><select id="serviceList">
+<option disabled="" hidden="" selected="" value="">Selecione um serviço</option>
+</select><button onclick="confirmLoadService()">Carregar Serviço</button></div><div style="display: flex; align-items: center; gap: 6px; margin-bottom: 10px;"><input id="identificacaoFilter" placeholder="Filtrar por ISOMÉTRICO ou QR Code" style=" text-transform: uppercase;" type="text"/><button id="btnClearFilter" onclick="document.getElementById('identificacaoFilter').value = ''; applyFilter();" style="height: 38px; border-radius: 4px; padding: 6px 10px; font-size: 14px; border: none; cursor: pointer; vertical-align: middle; background-color: #6c757d; color: white; min-width: 38px; margin-left: 5px; 2px;" title="Limpar filtro">✕</button></div><button onclick="downloadExcel()">Download Excel</button><button onclick="startQrScanner()">Escanear QR Code</button><button onclick="confirmarVoltar()" style="background-color: #dc3545; color: white; height: 38px; border-radius: 4px; padding: 6px 12px; font-size: 14px; border: none; cursor: pointer;" title="Voltar para o Início">
+<svg fill="white" height="16" style="vertical-align: middle; margin-right: 5px;" viewbox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg">
+<path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"></path>
+</svg>
         Voltar
-    </button>
+    </button></div>
 </div>
 <div class="modal-overlay" id="confirmModalOverlay" style="z-index: 2000;">
-    <div class="modal" style="text-align: center;">
-        <p id="confirmModalMessage" style="font-size: 16px;">
+<div class="modal" style="text-align: center;">
+<p id="confirmModalMessage" style="font-size: 16px;">
             Existem dados salvos para este serviço.<br/>Deseja continuar o Romaneio existente?
         </p>
-        <div class="modal-footer">
-            <button class="save-btn" id="btnConfirmSim">SIM</button>
-            <button class="close-btn" id="btnConfirmNovo" style="background-color: white; color: black;">NOVO ROMANEIO</button>
-        </div>
-    </div>
+<div class="modal-footer">
+<button class="save-btn" id="btnConfirmSim">SIM</button>
+<button class="close-btn" id="btnConfirmNovo" style="background-color: white; color: black;">NOVO ROMANEIO</button>
+</div>
+</div>
 </div>
 <div id="qr-container" style="display: none;">
-    <div id="qr-reader" style="width:300px; margin-top:10px;"></div>
-    <button class="close-btn" id="closeScannerBtn" onclick="stopQrScanner()" style="display: none;">Fechar Scanner</button>
+<div id="qr-reader" style="width:300px; margin-top:10px;"></div>
+<button class="close-btn" id="closeScannerBtn" onclick="stopQrScanner()" style="display: none;">Fechar Scanner</button>
 </div>
 <div class="table-container">
-    <table id="dataTable"></table>
+<table id="dataTable"></table>
 </div>
 <div class="modal-overlay" id="modalOverlay">
-    <div class="modal">
-        <input id="editIndex" type="hidden"/>
-        <label>ISOMÉTRICO:
+<div class="modal">
+<input id="editIndex" type="hidden"/>
+<label>ISOMÉTRICO:
             <input id="ISOMETRICO" readonly="" type="text"/>
-        </label>
-        <label>SPOOL:
+</label>
+<label>SPOOL:
             <input id="SPOOL" readonly="" type="text"/>
-        </label>
-        <label>ÁREA:
+</label>
+<label>ÁREA:
             <input id="AREA" readonly="" type="text"/>
-        </label>
-        <label>PROG FAB:
+</label>
+<label>PROG FAB:
             <input id="PROGFAB" readonly="" type="text"/>
-        </label>
-        <label>PESO:
+</label>
+<label>PESO:
             <input id="PESO" readonly="" type="text"/>
-        </label>
-        <label>Data do Romaneio:
+</label>
+<label>Data do Romaneio:
             <input id="DATADOROMANEIO" type="date"/>
-        </label>
-        <label>Obs Romaneio:
+</label>
+<label>Obs Romaneio:
             <input id="OBSROMANEIO" type="text"/>
-        </label>
-        <div class="modal-footer">
-            <button class="save-btn" onclick="saveEdit()">Salvar</button>
-            <button class="close-btn" onclick="closeModal()">Fechar</button>
-        </div>
-    </div>
+</label>
+<div class="modal-footer">
+<button class="save-btn" onclick="saveEdit()">Salvar</button>
+<button class="close-btn" onclick="closeModal()">Fechar</button>
+</div>
+</div>
 </div>
 <!-- Modal de Compartilhamento -->
 <div id="shareModal">
-    <div class="share-modal-content">
-        <h3>Download concluído!</h3>
-        <p>Deseja compartilhar este arquivo agora?</p>
-        <div class="share-modal-buttons">
-            <button class="save-btn" onclick="shareLastFile()">Compartilhar</button>
-            <button class="close-btn" onclick="closeShareModal()">Fechar</button>
-        </div>
-    </div>
+<div class="share-modal-content">
+<h3>Download concluído!</h3>
+<p>Deseja compartilhar este arquivo agora?</p>
+<div class="share-modal-buttons">
+<button class="save-btn" onclick="shareLastFile()">Compartilhar</button>
+<button class="close-btn" onclick="closeShareModal()">Fechar</button>
 </div>
-
+</div>
+</div>
 <script>
 // ========== Variáveis Globais ==========
 const canal = new BroadcastChannel("romaneio_spool");
@@ -583,6 +811,7 @@ async function loadServices() {
         findColumnIndexes();
         mapColumnIndexes();
 
+        findColumnIndexes();
         await populateServicoOptions();
 
         progressBar.style.width = "100%";
@@ -661,11 +890,21 @@ async function confirmLoadService() {
 }
 
 async function renderSelectedServico(manterEdicoes = false) {
+    abrirResponsavelModal((nomeSelecionado) => {
+        
+    });
+
     const selectedServico = document.getElementById("serviceList").value;
 
     if (window.originalData) {
         data = JSON.parse(JSON.stringify(window.originalData));
         filteredData = data.slice(1).filter(row => row[servicoIndex] === selectedServico);
+    if (filteredData.length === 0) {
+        abrirResponsavelModal((nomeSelecionado) => {
+            
+        });
+    }
+
     }
 
     if (!manterEdicoes) {
@@ -1058,6 +1297,18 @@ async function downloadExcel() {
         }
 
         const dataToExport = [headerRow, ...filteredRows];
+        // ===== Adiciona coluna RESPONSÁVEL =====
+        if (nomeResponsavelSelecionado && Array.isArray(dataToExport) && dataToExport.length > 1) {
+            const headers = dataToExport[0];
+            if (!headers.includes("RESPONSÁVEL")) {
+                headers.push("RESPONSÁVEL");
+                for (let i = 1; i < dataToExport.length; i++) {
+                    dataToExport[i].push(nomeResponsavelSelecionado);
+                }
+            }
+        }
+        // ========================================
+
         const formattedData = dataToExport.map((row, rowIndex) => {
             if (rowIndex === 0) return row;
             return row.map((cell, colIndex) => {
@@ -1173,14 +1424,84 @@ if ('serviceWorker' in navigator) {
 }
 
 localStorage.setItem("spool_sistemaAberto", "spool");
-</script>
 
+</script>
 <div class="loading-overlay" id="loadingOverlay">
-    <div class="loading-text">Carregando sistema...</div>
-    <div class="progress-container">
-        <div class="progress-bar" id="progressBar"></div>
-    </div>
+<div class="loading-text">Carregando sistema...</div>
+<div class="progress-container">
+<div class="progress-bar" id="progressBar"></div>
 </div>
+</div>
+<script>
+function confirmarVoltar() {
+    if (confirm("Tem certeza que deseja voltar ao menu principal?")) {
+        window.location.href = "index.html";
+    }
+}
+
+</script>
+<!-- Modal de Seleção de Responsável -->
+<div class="modal-overlay" id="responsavelModal" style="z-index: 3000; display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.9); justify-content: center; align-items: center;">
+<div class="modal" style="background-color: #2c2c2c; color: white; border-radius: 10px; padding: 20px; text-align: center;">
+<p style="font-size: 16px; color: white;">Quem está fazendo o romaneio?</p>
+<select id="responsavelSelect" style="margin-top: 15px; font-size: 15px; border-radius: 6px; background-color: #1e1e1e; color: white; border: 1px solid white; outline: none; box-shadow: none; height: 38px; padding: 5px 10px;">
+<option hidden="" selected="" value="">Selecione o nome</option>
+<option value="Wanderson">Wanderson</option>
+<option value="Richard">Richard</option>
+<option value="Vinício">Vinício</option>
+<option value="Cesar">Cesar</option>
+<option value="Alexsandro">Alexsandro</option>
+<option value="Marcos">Marcos</option>
+</select>
+<div class="modal-footer" style="margin-top: 20px;">
+<button class="save-btn" onclick="confirmarResponsavel()">Confirmar</button>
+<button class="close-btn" onclick="document.getElementById('responsavelModal').style.display='none'">Cancelar</button>
+</div>
+</div>
+</div>
+<script>
+let nomeResponsavelSelecionado = "";
+
+function atualizarResponsavelNaTela() {
+  const info = document.getElementById("nomeResponsavelInfo");
+  if (info && nomeResponsavelSelecionado) {
+    info.textContent = "Responsável: " + nomeResponsavelSelecionado;
+  }
+}
+
+
+function abrirResponsavelModal(callback) {
+  const modal = document.getElementById("responsavelModal");
+  modal.style.display = "flex";
+  
+  window._responsavelCallback = callback;
+}
+
+function confirmarResponsavel() {
+  const select = document.getElementById("responsavelSelect");
+  const nome = select.value;
+
+  if (!nome) {
+    alert("Selecione um nome.");
+    return;
+  }
+
+  nomeResponsavelSelecionado = nome;
+  fecharResponsavelModal();
+
+  atualizarResponsavelNaTela();
+if (typeof window._responsavelCallback === "function") {
+    window._responsavelCallback(nome);
+    window._responsavelCallback = null;
+  }
+}
+
+function fecharResponsavelModal() {
+  const modal = document.getElementById("responsavelModal");
+  modal.style.display = "none";
+}
+
+</script>
 
 </body>
 </html>
